@@ -48,6 +48,19 @@ set_cfg input_joypad_driver udev
 set_cfg joypad_autoconfig_dir "$RA_DIR/autoconfig"
 set_cfg rgui_browser_directory "$ROMS"
 
+# Force the tested GC201 controller mapping for Player 1.
+set_cfg input_player1_joypad_index 0
+set_cfg input_player1_a_btn 0
+set_cfg input_player1_b_btn 1
+set_cfg input_player1_x_btn 3
+set_cfg input_player1_y_btn 4
+set_cfg input_player1_start_btn 11
+set_cfg input_player1_select_btn 12
+set_cfg input_player1_left_axis -6
+set_cfg input_player1_right_axis +6
+set_cfg input_player1_up_axis -7
+set_cfg input_player1_down_axis +7
+
 if [ "$REAL_USER" != "root" ]; then
   chown -R "$REAL_USER:$REAL_USER" "$RA_DIR" "$ROMS"
 fi
@@ -55,6 +68,9 @@ fi
 echo
 echo "Installed GC201 controller configuration:"
 cat "$AUTOCONFIG_DIR/GC201 Controller1.00.cfg"
+echo
+echo "Forced Player 1 mapping into: $CFG"
+grep -E '^input_player1_(joypad_index|a_btn|b_btn|x_btn|y_btn|start_btn|select_btn|left_axis|right_axis|up_axis|down_axis)' "$CFG" || true
 echo
 echo "ROM folders created under: $ROMS"
 echo "Setup complete. Start RetroArch and test the controller."
